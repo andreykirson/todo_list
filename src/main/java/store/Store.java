@@ -5,7 +5,8 @@ import java.util.List;
 
 public interface Store {
     void addItem(Item item);
-    boolean delete(Item item);
-    boolean setStatus(int id, boolean status);
+    void delete(Item item);
+    void update(Item item);
+    Item findItemById(int id);
     List<Item> findAll();
 }

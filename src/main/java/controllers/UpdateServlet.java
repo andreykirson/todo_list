@@ -1,5 +1,6 @@
 package controllers;
 
+import model.Item;
 import store.HbmStore;
 import store.Store;
 import javax.servlet.http.HttpServlet;
@@ -24,9 +25,9 @@ public class UpdateServlet extends HttpServlet {
            String[] str = fullLine.toString().split("\\s+");
             int id = Integer.parseInt(str[0]);
             boolean status = Boolean.parseBoolean(str[1]);
-            store.setStatus(id, status);
-            System.out.println(str[0]);
-            System.out.println(str[1]);
+            Item item = store.findItemById(id);
+            item.setDone(status);
+            store.update(item);
         } catch (IOException e) {
             e.printStackTrace();
         }
