@@ -4,9 +4,9 @@ import model.Item;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
+import org.hibernate.boot.MetadataSources;
 import org.hibernate.boot.registry.StandardServiceRegistry;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
-import org.hibernate.cfg.Configuration;
 import java.util.List;
 import java.util.function.BiConsumer;
 import java.util.function.Function;
@@ -14,18 +14,10 @@ import java.util.function.Function;
 public class HbmStore implements Store, AutoCloseable {
 
     private static final Store INSTANCE = new HbmStore();
-    private final Configuration configuration;
-
-
     private final StandardServiceRegistry registry = new StandardServiceRegistryBuilder()
             .configure().build();
-
-    private SessionFactory sf;
-
-    private HbmStore() {
-        configuration = new Configuration();
-        sf = configuration.configure().buildSessionFactory();
-    }
+    private final SessionFactory sf = new MetadataSources(registry)
+            .buildMetadata().buildSessionFactory();
 
 
     public static Store getInstance() {

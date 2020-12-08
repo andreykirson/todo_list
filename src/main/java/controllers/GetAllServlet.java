@@ -2,6 +2,8 @@ package controllers;
 
 import com.google.gson.Gson;
 import model.Item;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import store.HbmStore;
 import store.Store;
 import javax.servlet.http.HttpServlet;
@@ -13,10 +15,12 @@ import java.util.Collection;
 
 public class GetAllServlet extends HttpServlet {
 
+    private static final Logger LOG = LoggerFactory.getLogger(AddServlet.class.getName());
     private final Store store = HbmStore.getInstance();
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+        LOG.debug("GetAllServlet's doGET() called");
         resp.setContentType("application/json");
         resp.setCharacterEncoding("UTF-8");
         Collection<Item> items = store.findAll();
@@ -25,5 +29,6 @@ public class GetAllServlet extends HttpServlet {
         writer.println(json);
         writer.flush();
         writer.close();
+        LOG.debug("GetAllServlet finished");
     }
 }
