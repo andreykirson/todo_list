@@ -1,4 +1,4 @@
-
+<%@ page import="model.User" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
 <html>
@@ -14,6 +14,7 @@
 <!-- Nav -->
 <header>
     <h1>Todo List</h1>
+    <br>
 </header>
 
 <main>
@@ -26,6 +27,14 @@
     <label for="display-check">Display done/all</label>
 
     <table id="tasks-tbl">
+        <thead>
+        <tr>
+            <td> Task description </td>
+            <td> Data created </td>
+            <td> Author </td>
+            <td> Done/not </td>
+        </tr>
+        </thead>
         <tr></tr>
     </table>
 </main>
@@ -37,6 +46,7 @@
 
     let lastId = 0;
     let elements = [];
+    let userName;
 
     $(document).ready(function () {
         $.ajax({
@@ -45,28 +55,33 @@
             dataType: "json",
             success: function(data){
                 let jsonobj = JSON.parse(JSON.stringify(data));
+                console.log(jsonobj);
                 $.each(data, function(index) {
                         let item = {
                             id: jsonobj[index].id,
                             description: jsonobj[index].description,
                             createdTime: jsonobj[index].createdTime,
-                            done: jsonobj[index].done
+                            done: jsonobj[index].done,
+                            user: jsonobj[index].user
                         };
 
                 let row =
                 "<tr  id='tr-" + item.id + "'>" +
-                "<td>" + "<span>" + item.id + "</span>" + "<span>" + item.description + "</span>" + "</td>" +
+                "<td>" + "<span hidden>" + item.id + "</span>" + "<span>" + item.description + "</span>" + "</td>" +
                 "<td>" + item.createdTime + "</td>" +
-                "<td>" + "<input id='ch-" + item.id + "'  onchange = handleCheckbox(this) class='checkbx' type='checkbox'>"
-                        + "</td>" +
+                "<td>" + item.user.username + "</td>" +
+                "<td>" + "<input id='ch-" + item.id + "'  onchange = handleCheckbox(this) class='checkbx' type='checkbox'>" +
+                "</td>" +
                 "</tr>";
+
+                userName = item.user.username;
                 $("#tasks-tbl tbody").append(row);
                 elements.push(
                     {id: item.id, hidden: item.done}
                 );
                 let chId="ch-"+item.id;
                 item.done === true ? $("#ch-"+item.id).prop("checked", true) : '';
-               display();
+                display();
                 lastId = item.id;
                     }
                 );
@@ -82,13 +97,15 @@
             id: lastId,
             description: description,
             createdTime: date,
-            done: false
+            done: false,
+            user: userName
         };
 
         let row =
             "<tr 'tr-" + item.id + "'>" +
-            "<td>" + "<span>" + (++item.id) + "</span>" + "<span>" + item.description + "</span>" + "</td>" +
+            "<td>" + "<span hidden>" + (++item.id) + "</span>" + "<span>" + item.description + "</span>" + "</td>" +
             "<td>" + item.createdTime + "</td>" +
+            "<td>" + item.user + "</td>" +
             "<td>" + "<input type=checkbox > " + "</td>" +
             "</tr>";
 

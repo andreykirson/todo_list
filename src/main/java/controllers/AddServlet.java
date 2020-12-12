@@ -2,6 +2,7 @@ package controllers;
 
 import com.google.gson.*;
 import model.Item;
+import model.User;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import store.HbmStore;
@@ -30,6 +31,9 @@ public class AddServlet extends HttpServlet {
             String pattern = "YYYY-MM-DD H:mm:ss";
             Gson gson = new GsonBuilder().setDateFormat(pattern).create();
             Item item = gson.fromJson(String.valueOf(fullLine), Item.class);
+            User user = (User) req.getSession().getAttribute("user");
+            LOG.debug("User : {}, added item {}", user.getUsername(), item.getDescription());
+            item.setUser(user);
             store.addItem(item);
             LOG.debug("The item is added: {}", item);
         } catch (IOException e) {

@@ -1,6 +1,8 @@
 package store;
 
 import model.Item;
+import model.User;
+
 import java.util.List;
 
 public interface Store {
@@ -9,4 +11,6 @@ public interface Store {
     void update(Item item);
     Item findItemById(int id);
     List<Item> findAll();
+    User findUserByEmail(String email);
+    void createUser(User user);
 }

@@ -16,21 +16,28 @@ public class Item {
     private Timestamp createdTime;
     private boolean done;
 
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private User user;
+
     public Item() {
 
     }
 
-    public Item(String description, Timestamp createdTime, boolean done) {
+    public Item(String description, Timestamp createdTime, boolean done, User user) {
         this.description = description;
         this.createdTime = createdTime;
         this.done = done;
+        this.user = user;
     }
 
-    public Item(Integer id, String description, Timestamp createdTime, boolean done) {
+    public Item(Integer id, String description, Timestamp createdTime, boolean done, User user) {
         this.id = id;
         this.description = description;
         this.createdTime = createdTime;
         this.done = done;
+        this.user = user;
+
     }
 
     public Integer getId() {
@@ -65,29 +72,32 @@ public class Item {
         this.done = done;
     }
 
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
     @Override
     public boolean equals(Object o) {
-        boolean result;
         if (this == o) {
-            result = true;
-        } else if (o == null || getClass() != o.getClass()) {
-            result = false;
-        } else {
-            Item item = (Item) o;
-            result = done == item.done
-                    &&
-                    Objects.equals(id, item.id)
-                    &&
-                    Objects.equals(description, item.description)
-                    &&
-                    Objects.equals(createdTime, item.createdTime);
+            return true;
         }
-        return result;
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        Item item = (Item) o;
+        return id == item.id
+                && done == item.done
+                && Objects.equals(description, item.description)
+                && Objects.equals(createdTime, item.createdTime)
+                && Objects.equals(user, item.user);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, description, createdTime, done);
+        return Objects.hash(id, description, createdTime, done, user);
     }
-
 }

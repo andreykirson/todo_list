@@ -1,6 +1,7 @@
 package store;
 
 import model.Item;
+import model.User;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
@@ -18,7 +19,6 @@ public class HbmStore implements Store, AutoCloseable {
             .configure().build();
     private final SessionFactory sf = new MetadataSources(registry)
             .buildMetadata().buildSessionFactory();
-
 
     public static Store getInstance() {
         return INSTANCE;
@@ -63,7 +63,21 @@ public class HbmStore implements Store, AutoCloseable {
 
     @Override
     public void addItem(Item item) {
-            this.wrapperOne(session -> session.save(item));
+        this.wrapperOne(session -> session.save(item));
+    }
+
+    @Override
+    public void createUser(User user) {
+        this.wrapperOne(session -> session.save(user));
+    }
+
+    @Override
+    public User findUserByEmail(String value) {
+        return (User) this.wrapperOne(
+                session -> session.createQuery("From User where email=:email")
+                        .setString("email", value)
+                        .uniqueResult()
+        );
     }
 
     public List<Item> findAll() {

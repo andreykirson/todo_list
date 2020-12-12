@@ -26,9 +26,11 @@ public class UpdateServlet extends HttpServlet {
             while ((line = reader.readLine()) != null) {
                 fullLine.append(line);
             }
+           System.out.println(fullLine.toString());
            String[] str = fullLine.toString().split("\\s+");
-            int id = Integer.parseInt(str[0]);
-            boolean status = Boolean.parseBoolean(str[1]);
+           boolean status = Boolean.parseBoolean(str[1]);
+           int id = Integer.parseInt(String.valueOf(str[0].split("-")[1]));
+            System.out.println(id);
             Item item = store.findItemById(id);
             item.setDone(status);
             store.update(item);
