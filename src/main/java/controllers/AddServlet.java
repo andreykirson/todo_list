@@ -20,7 +20,6 @@ public class AddServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException {
-        LOG.debug("AddServlet's doPOST() called");
         req.setCharacterEncoding("UTF-8");
         try (BufferedReader reader = req.getReader()) {
             StringBuilder fullLine = new StringBuilder();
@@ -32,10 +31,9 @@ public class AddServlet extends HttpServlet {
             Gson gson = new GsonBuilder().setDateFormat(pattern).create();
             Item item = gson.fromJson(String.valueOf(fullLine), Item.class);
             User user = (User) req.getSession().getAttribute("user");
-            LOG.debug("User : {}, added item {}", user.getUsername(), item.getDescription());
             item.setUser(user);
             store.addItem(item);
-            LOG.debug("The item is added: {}", item);
+            LOG.debug("User : {}, added item {}", user.getUsername(), item.getDescription());
         } catch (IOException e) {
             LOG.error("Something goes wrong", e);
         }

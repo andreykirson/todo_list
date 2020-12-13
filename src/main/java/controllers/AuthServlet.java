@@ -26,17 +26,14 @@ public class AuthServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        LOG.debug("AuthServlet's doPOST() called");
         User user = store.findUserByEmail(req.getParameter("email"));
         LOG.debug("Found user: {}", user);
         String email = req.getParameter("email");
-        LOG.debug("Get email from user: {}", email);
         String password = req.getParameter("password");
-        LOG.debug("Get password from user: {}", password);
         if (user != null && Objects.equals(user.getEmail(), email) && Objects.equals(user.getPassword(), password)) {
             HttpSession sc = req.getSession();
             sc.setAttribute("user", user);
-            LOG.debug("User {} is logged in: ", user.toString());
+            LOG.debug("User {} is logged in: ", user.getUsername());
             resp.sendRedirect(req.getContextPath() + "/index.jsp");
         } else {
             LOG.error("You entered wrong password or email");

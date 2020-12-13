@@ -57,11 +57,13 @@
                         </div>
                         <div class="form-group">
                             <label for="password" class="text-info">Password:</label><br>
-                            <input type="text" name="password" id="password" class="form-control">
+                            <input type="password" name="password" id="password" class="form-control">
                         </div>
                         <div class="form-group">
                             <input type="submit" name="submit" class="btn btn-info btn-md" value="Log in" onclick="return validate()";>
+                            <a class="nav-link" href="<%=request.getContextPath()%>/reg.jsp">Registration</a>
                         </div>
+
                     </form>
                 </div>
             </div>
