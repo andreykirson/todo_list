@@ -1,7 +1,6 @@
 package model;
 
 import javax.persistence.*;
-
 import java.sql.Timestamp;
 import java.util.Objects;
 
@@ -20,24 +19,38 @@ public class Item {
     @JoinColumn(name = "user_id")
     private User user;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "category_id")
+    private Category category;
+
+
     public Item() {
 
     }
 
-    public Item(String description, Timestamp createdTime, boolean done, User user) {
+    public Category getCategory() {
+        return category;
+    }
+
+    public void setCategory(Category category) {
+        this.category = category;
+    }
+
+    public Item(String description, Timestamp createdTime, boolean done, User user, Category category) {
         this.description = description;
         this.createdTime = createdTime;
         this.done = done;
         this.user = user;
+        this.category = category;
     }
 
-    public Item(Integer id, String description, Timestamp createdTime, boolean done, User user) {
+    public Item(Integer id, String description, Timestamp createdTime, boolean done, User user, Category category) {
         this.id = id;
         this.description = description;
         this.createdTime = createdTime;
         this.done = done;
         this.user = user;
-
+        this.category = category;
     }
 
     public Integer getId() {
@@ -99,5 +112,18 @@ public class Item {
     @Override
     public int hashCode() {
         return Objects.hash(id, description, createdTime, done, user);
+    }
+
+
+    @Override
+    public String toString() {
+        return "Item{"
+                + "id=" + id
+                + ", description='" + description + '\''
+                + ", createdTime=" + createdTime
+                + ", done=" + done
+                + ", user=" + user.getUsername()
+                + ", category=" + category.getDesc()
+                + '}';
     }
 }

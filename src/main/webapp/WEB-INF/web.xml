@@ -29,6 +29,17 @@
     <url-pattern>/add.do</url-pattern>
   </servlet-mapping>
 
+
+  <servlet>
+    <servlet-name>GetAllCategoryServlet</servlet-name>
+    <servlet-class>controllers.GetAllCategoryServlet</servlet-class>
+  </servlet>
+
+  <servlet-mapping>
+    <servlet-name>GetAllCategoryServlet</servlet-name>
+    <url-pattern>/GetAllCategory.do</url-pattern>
+  </servlet-mapping>
+
   <servlet>
     <servlet-name>RegServlet</servlet-name>
     <servlet-class>controllers.RegServlet</servlet-class>

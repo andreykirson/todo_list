@@ -1,5 +1,6 @@
 package store;
 
+import model.Category;
 import model.Item;
 import model.User;
 
@@ -13,4 +14,5 @@ public interface Store {
     List<Item> findAll();
     User findUserByEmail(String email);
     void createUser(User user);
+    List<Category> findAllCategories();
 }

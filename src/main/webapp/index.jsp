@@ -3,15 +3,33 @@
 
 <html>
 
+
+
 <head>
-<%--    <link rel="stylesheet" href="${pageContext.request.contextPath}/style/style.css" />--%>
     <script src=https://code.jquery.com/jquery-3.1.1.min.js ></script>
     <script src="http://momentjs.com/downloads/moment.js"></script>
-
     <title>Title</title>
+
+    <script>
+        $(document).ready(function () {
+            $.ajax({
+                url: 'http://localhost:8080/todolist/GetAllCategory.do',
+                type: "GET",
+                dataType: "json",
+                success: function(data){
+                    var data = JSON.parse(JSON.stringify(data))
+                    var options = $("#select-category");
+                    $.each(data, function(index) {
+                        options.append($("<option />").val(data[index].desc).text(data[index].desc));
+                    });
+                }
+            });
+        })
+    </script>
+
 </head>
 <body>
-<!-- Nav -->
+
 <header>
     <h1>Todo List</h1>
     <br>
@@ -20,7 +38,13 @@
 <main>
     <form name="task editor">
         <input type="text" size="100" id="input">
-        <input type="button" id="add-task" value="Add" onclick="validate()">
+
+        <select name="select" id="select-category">
+            <option value="Please select category">Please select category</option>
+        </select>
+
+
+        <input type="button" id="add-task" value="Add" onclick="validate(); validateCategory()">
     </form>
 
     <input type="checkbox" class="viewchkbx" id="display-check" onclick="changeView(this)" >
@@ -32,6 +56,7 @@
             <td> Task description </td>
             <td> Data created </td>
             <td> Author </td>
+            <td> Category </td>
             <td> Done/not </td>
         </tr>
         </thead>
@@ -62,7 +87,8 @@
                             description: jsonobj[index].description,
                             createdTime: jsonobj[index].createdTime,
                             done: jsonobj[index].done,
-                            user: jsonobj[index].user
+                            user: jsonobj[index].user,
+                            category:jsonobj[index].category
                         };
 
                 let row =
@@ -70,6 +96,7 @@
                 "<td>" + "<span hidden>" + item.id + "</span>" + "<span>" + item.description + "</span>" + "</td>" +
                 "<td>" + item.createdTime + "</td>" +
                 "<td>" + item.user.username + "</td>" +
+                "<td>" + item.category.desc + "</td>" +
                 "<td>" + "<input id='ch-" + item.id + "'  onchange = handleCheckbox(this) class='checkbx' type='checkbox'>" +
                 "</td>" +
                 "</tr>";
@@ -92,13 +119,15 @@
     $('#add-task').click(function()  {
 
         let description = document.getElementById("input").value;
+        let category = document.getElementById("select-category").value;
         let date = moment().format('YYYY-MM-DD H:mm:ss');
         let item = {
             id: lastId,
             description: description,
             createdTime: date,
             done: false,
-            user: userName
+            user: userName,
+            desc: category
         };
 
         let row =
@@ -106,6 +135,7 @@
             "<td>" + "<span hidden>" + (++item.id) + "</span>" + "<span>" + item.description + "</span>" + "</td>" +
             "<td>" + item.createdTime + "</td>" +
             "<td>" + item.user + "</td>" +
+            "<td>" + item.desc + "</td>" +
             "<td>" + "<input type=checkbox > " + "</td>" +
             "</tr>";
 
@@ -118,6 +148,7 @@
             document.getElementById("input").value = "";
         }
        let data = JSON.stringify (item);
+        console.log(data);
         sendItem(data);
     })
 
@@ -129,6 +160,16 @@
         }
         return true;
     }
+
+    function validateCategory() {
+        let x = document.forms["task editor"]["select-category"].value;
+        if (x == "Please select category") {
+            alert("Please select your task category");
+            return false;
+        }
+        return true;
+    }
+
 
     function sendItem(item)  {
         $.ajax({

@@ -1,6 +1,7 @@
 package controllers;
 
 import com.google.gson.*;
+import model.Category;
 import model.Item;
 import model.User;
 import org.slf4j.Logger;
@@ -30,6 +31,8 @@ public class AddServlet extends HttpServlet {
             String pattern = "YYYY-MM-DD H:mm:ss";
             Gson gson = new GsonBuilder().setDateFormat(pattern).create();
             Item item = gson.fromJson(String.valueOf(fullLine), Item.class);
+            Category category = gson.fromJson(String.valueOf(fullLine), Category.class);
+            item.setCategory(category);
             User user = (User) req.getSession().getAttribute("user");
             item.setUser(user);
             store.addItem(item);

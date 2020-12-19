@@ -1,5 +1,6 @@
 package store;
 
+import model.Category;
 import model.Item;
 import model.User;
 import org.hibernate.Session;
@@ -83,6 +84,12 @@ public class HbmStore implements Store, AutoCloseable {
     public List<Item> findAll() {
         return this.wrapperOne(
                 session -> session.createQuery("from Item").list()
+        );
+    }
+
+    public List<Category> findAllCategories() {
+        return this.wrapperOne(
+                session -> session.createQuery("from Category").list()
         );
     }
 
