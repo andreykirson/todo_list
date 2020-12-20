@@ -9,8 +9,6 @@ import org.hibernate.Transaction;
 import org.hibernate.boot.MetadataSources;
 import org.hibernate.boot.registry.StandardServiceRegistry;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
-
-import javax.sound.midi.Soundbank;
 import java.util.List;
 import java.util.function.BiConsumer;
 import java.util.function.Function;
@@ -66,6 +64,7 @@ public class HbmStore implements Store, AutoCloseable {
 
     @Override
     public void addItem(Item item) {
+        System.out.println(item.toString());
         this.wrapperOne(session -> session.save(item));
     }
 

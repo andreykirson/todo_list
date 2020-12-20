@@ -120,7 +120,7 @@
 
         let description = document.getElementById("input").value;
         let category = document.getElementById("select-category").value;
-        let date = moment().format('YYYY-MM-DD H:mm:ss');
+        let date = moment.utc().toDate();
         let item = {
             id: lastId,
             description: description,

@@ -1,7 +1,7 @@
 package model;
 
 import javax.persistence.*;
-import java.sql.Timestamp;
+import java.util.Date;
 import java.util.Objects;
 
 @Entity
@@ -12,14 +12,17 @@ public class Item {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     private String description;
-    private Timestamp createdTime;
+
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date createdTime;
+
     private boolean done;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "user_id")
     private User user;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "category_id")
     private Category category;
 
@@ -36,7 +39,7 @@ public class Item {
         this.category = category;
     }
 
-    public Item(String description, Timestamp createdTime, boolean done, User user, Category category) {
+    public Item(String description, Date createdTime, boolean done, User user, Category category) {
         this.description = description;
         this.createdTime = createdTime;
         this.done = done;
@@ -44,7 +47,7 @@ public class Item {
         this.category = category;
     }
 
-    public Item(Integer id, String description, Timestamp createdTime, boolean done, User user, Category category) {
+    public Item(Integer id, String description, Date createdTime, boolean done, User user, Category category) {
         this.id = id;
         this.description = description;
         this.createdTime = createdTime;
@@ -69,11 +72,11 @@ public class Item {
         this.description = description;
     }
 
-    public Timestamp getCreatedTime() {
+    public Date getCreatedTime() {
         return createdTime;
     }
 
-    public void setCreatedTime(Timestamp created) {
+    public void setCreatedTime(Date created) {
         this.createdTime = created;
     }
 
