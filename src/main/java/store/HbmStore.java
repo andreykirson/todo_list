@@ -9,6 +9,8 @@ import org.hibernate.Transaction;
 import org.hibernate.boot.MetadataSources;
 import org.hibernate.boot.registry.StandardServiceRegistry;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
+
+import javax.sound.midi.Soundbank;
 import java.util.List;
 import java.util.function.BiConsumer;
 import java.util.function.Function;
@@ -82,6 +84,7 @@ public class HbmStore implements Store, AutoCloseable {
     }
 
     public List<Item> findAll() {
+        System.out.println("Start query from item get all items");
         return this.wrapperOne(
                 session -> session.createQuery("from Item").list()
         );

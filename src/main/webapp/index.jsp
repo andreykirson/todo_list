@@ -44,7 +44,7 @@
         </select>
 
 
-        <input type="button" id="add-task" value="Add" onclick="validate(); validateCategory()">
+        <input type="button" id="add-task" value="Add" onclick="validate()">
     </form>
 
     <input type="checkbox" class="viewchkbx" id="display-check" onclick="changeView(this)" >
@@ -154,17 +154,9 @@
 
     function validate() {
         let x = document.forms["task editor"]["input"].value;
-        if (x == "") {
-            alert("Please describe your task");
-            return false;
-        }
-        return true;
-    }
-
-    function validateCategory() {
-        let x = document.forms["task editor"]["select-category"].value;
-        if (x == "Please select category") {
-            alert("Please select your task category");
+        let y = document.forms["task editor"]["select-category"].value;
+        if (x === "" || y === "Please select category") {
+            alert("Please describe your task and select task category");
             return false;
         }
         return true;

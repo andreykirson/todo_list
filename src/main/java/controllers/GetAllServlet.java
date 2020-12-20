@@ -23,6 +23,7 @@ public class GetAllServlet extends HttpServlet {
         LOG.debug("GetAllServlet's doGET() called");
         resp.setContentType("application/json");
         resp.setCharacterEncoding("UTF-8");
+        LOG.debug("Start query");
         Collection<Item> items = store.findAll();
         PrintWriter writer = new PrintWriter(resp.getOutputStream());
         String json = new Gson().toJson(items);
