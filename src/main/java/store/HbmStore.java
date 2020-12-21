@@ -64,7 +64,6 @@ public class HbmStore implements Store, AutoCloseable {
 
     @Override
     public void addItem(Item item) {
-        System.out.println(item.toString());
         this.wrapperOne(session -> session.save(item));
     }
 
@@ -83,7 +82,6 @@ public class HbmStore implements Store, AutoCloseable {
     }
 
     public List<Item> findAll() {
-        System.out.println("Start query from item get all items");
         return this.wrapperOne(
                 session -> session.createQuery("from Item").list()
         );

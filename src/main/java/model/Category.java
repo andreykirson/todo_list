@@ -9,23 +9,21 @@ public class Category {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-    private String desc;
 
+    private String desccategory;
 
     public Category() {
 
     }
 
-
-    public Category(int id, String desc) {
+    public Category(int id, String desccategory) {
         this.id = id;
-        this.desc = desc;
+        this.desccategory = desccategory;
     }
 
-    public Category(String desc) {
-        this.desc = desc;
+    public Category(String desccategory) {
+        this.desccategory = desccategory;
     }
-
 
     public int getId() {
         return id;
@@ -35,12 +33,12 @@ public class Category {
         this.id = id;
     }
 
-    public String getDesc() {
-        return desc;
+    public String getDesccategory() {
+        return desccategory;
     }
 
-    public void setDesc(String description) {
-        this.desc = description;
+    public void setDesccategory(String description) {
+        this.desccategory = description;
     }
 
     @Override
@@ -53,18 +51,19 @@ public class Category {
         }
         Category category = (Category) o;
         return id == category.id
-                && Objects.equals(desc, category.desc);
+                && Objects.equals(desccategory, category.desccategory);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, desc);
+        return Objects.hash(id, desccategory);
     }
 
     @Override
     public String toString() {
         return "Category{"
-                + "description='" + desc + '\''
+                + "id=" + id
+                + ", desccategory='" + desccategory + '\''
                 + '}';
     }
 }

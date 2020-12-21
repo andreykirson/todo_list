@@ -3,5 +3,6 @@ id serial PRIMARY KEY,
 description VARCHAR ( 1000 ) NOT NULL UNIQUE,
 createdTime TIMESTAMP,
 user_id int not null references users(id),
+category_id int not null references category(id),
 done boolean
 );

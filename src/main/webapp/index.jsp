@@ -1,8 +1,7 @@
-<%@ page import="model.User" %>
+
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
 <html>
-
 
 
 <head>
@@ -20,7 +19,7 @@
                     var data = JSON.parse(JSON.stringify(data))
                     var options = $("#select-category");
                     $.each(data, function(index) {
-                        options.append($("<option />").val(data[index].desc).text(data[index].desc));
+                        options.append($("<option />").val(data[index].id).text(data[index].desccategory));
                     });
                 }
             });
@@ -96,7 +95,7 @@
                 "<td>" + "<span hidden>" + item.id + "</span>" + "<span>" + item.description + "</span>" + "</td>" +
                 "<td>" + item.createdTime + "</td>" +
                 "<td>" + item.user.username + "</td>" +
-                "<td>" + item.category.desc + "</td>" +
+                "<td>" + item.category.desccategory + "</td>" +
                 "<td>" + "<input id='ch-" + item.id + "'  onchange = handleCheckbox(this) class='checkbx' type='checkbox'>" +
                 "</td>" +
                 "</tr>";
@@ -106,7 +105,7 @@
                 elements.push(
                     {id: item.id, hidden: item.done}
                 );
-                let chId="ch-"+item.id;
+                let chId = "ch-"+item.id;
                 item.done === true ? $("#ch-"+item.id).prop("checked", true) : '';
                 display();
                 lastId = item.id;
@@ -119,7 +118,8 @@
     $('#add-task').click(function()  {
 
         let description = document.getElementById("input").value;
-        let category = document.getElementById("select-category").value;
+        let categoryID = document.getElementById("select-category").value;
+        let categoryDesc = $("#select-category>option:selected").text()
         let date = moment.utc().toDate();
         let item = {
             id: lastId,
@@ -127,7 +127,8 @@
             createdTime: date,
             done: false,
             user: userName,
-            desc: category
+            categoryID: categoryID,
+            categoryDesc: categoryDesc
         };
 
         let row =
@@ -135,7 +136,7 @@
             "<td>" + "<span hidden>" + (++item.id) + "</span>" + "<span>" + item.description + "</span>" + "</td>" +
             "<td>" + item.createdTime + "</td>" +
             "<td>" + item.user + "</td>" +
-            "<td>" + item.desc + "</td>" +
+            "<td>" + item.categoryDesc + "</td>" +
             "<td>" + "<input type=checkbox > " + "</td>" +
             "</tr>";
 

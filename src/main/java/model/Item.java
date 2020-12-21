@@ -18,11 +18,11 @@ public class Item {
 
     private boolean done;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne
     @JoinColumn(name = "user_id")
     private User user;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne
     @JoinColumn(name = "category_id")
     private Category category;
 
@@ -126,7 +126,7 @@ public class Item {
                 + ", createdTime=" + createdTime
                 + ", done=" + done
                 + ", user=" + user.getUsername()
-                + ", category=" + category.getDesc()
+                + ", category=" + category.getDesccategory()
                 + '}';
     }
 }
