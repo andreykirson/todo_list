@@ -13,6 +13,12 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.Collection;
 
+/**
+ * @author Andrey
+ * @date 10/12/2020
+ */
+
+
 public class GetAllCategoryServlet extends HttpServlet {
     private static final Logger LOG = LoggerFactory.getLogger(GetAllCategoryServlet.class.getName());
     private final Store store = HbmStore.getInstance();
@@ -22,7 +28,6 @@ public class GetAllCategoryServlet extends HttpServlet {
         LOG.debug("GetAllCategory's doGET() called");
         resp.setContentType("application/json");
         resp.setCharacterEncoding("UTF-8");
-        System.out.println("Start Get All Category Servlet");
         Collection<Category> categories = store.findAllCategories();
         PrintWriter writer = new PrintWriter(resp.getOutputStream());
         String json = new Gson().toJson(categories);

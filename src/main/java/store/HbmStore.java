@@ -13,6 +13,11 @@ import java.util.List;
 import java.util.function.BiConsumer;
 import java.util.function.Function;
 
+/**
+ * @author Andrey
+ * @date 10/12/2020
+ */
+
 public class HbmStore implements Store, AutoCloseable {
 
     private static final Store INSTANCE = new HbmStore();

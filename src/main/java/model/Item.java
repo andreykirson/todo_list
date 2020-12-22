@@ -4,6 +4,12 @@ import javax.persistence.*;
 import java.util.Date;
 import java.util.Objects;
 
+/**
+ * @author Andrey
+ * @date 10/12/2020
+ */
+
+
 @Entity
 @Table(name = "item")
 

@@ -1,7 +1,5 @@
 package controllers;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 import model.Category;
 import model.Item;
 import model.User;
@@ -18,6 +16,11 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.*;
+
+/**
+ * @author Andrey
+ * @date 10/12/2020
+ */
 
 public class AddServlet extends HttpServlet {
 

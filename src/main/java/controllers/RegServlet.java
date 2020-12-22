@@ -16,7 +16,6 @@ import java.io.IOException;
  * @date 10/12/2020
  */
 
-
 public class RegServlet extends HttpServlet {
 
     private static final Logger LOG = LoggerFactory.getLogger(AddServlet.class.getName());

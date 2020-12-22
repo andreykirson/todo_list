@@ -13,6 +13,11 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.Collection;
 
+/**
+ * @author Andrey
+ * @date 10/12/2020
+ */
+
 public class GetAllServlet extends HttpServlet {
 
     private static final Logger LOG = LoggerFactory.getLogger(AddServlet.class.getName());

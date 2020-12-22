@@ -11,6 +11,11 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.BufferedReader;
 import java.io.IOException;
 
+/**
+ ** @author Andrey
+ * @date 10/12/2020
+ */
+
 public class UpdateServlet extends HttpServlet {
 
     private static final Logger LOG = LoggerFactory.getLogger(UpdateServlet.class.getName());
@@ -30,7 +35,6 @@ public class UpdateServlet extends HttpServlet {
            String[] str = fullLine.toString().split("\\s+");
            boolean status = Boolean.parseBoolean(str[1]);
            int id = Integer.parseInt(String.valueOf(str[0].split("-")[1]));
-            System.out.println(id);
             Item item = store.findItemById(id);
             item.setDone(status);
             store.update(item);
