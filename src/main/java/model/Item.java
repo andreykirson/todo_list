@@ -9,7 +9,6 @@ import java.util.Objects;
  * @date 10/12/2020
  */
 
-
 @Entity
 @Table(name = "item")
 

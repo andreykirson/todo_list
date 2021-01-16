@@ -20,7 +20,7 @@ import java.util.Collection;
 
 public class GetAllServlet extends HttpServlet {
 
-    private static final Logger LOG = LoggerFactory.getLogger(AddServlet.class.getName());
+    private static final Logger LOG = LoggerFactory.getLogger(GetAllServlet.class.getName());
     private final Store store = HbmStore.getInstance();
 
     @Override

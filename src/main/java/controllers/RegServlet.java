@@ -18,7 +18,7 @@ import java.io.IOException;
 
 public class RegServlet extends HttpServlet {
 
-    private static final Logger LOG = LoggerFactory.getLogger(AddServlet.class.getName());
+    private static final Logger LOG = LoggerFactory.getLogger(RegServlet.class.getName());
     private final Store store = HbmStore.getInstance();
 
     @Override

@@ -15,13 +15,12 @@ import java.util.Objects;
 
 /**
  * @author Andrey
- * @date 10/12/2020
+ * @date 29/12/2020
  */
-
 
 public class AuthServlet extends HttpServlet {
 
-    private static final Logger LOG = LoggerFactory.getLogger(AddServlet.class.getName());
+    private static final Logger LOG = LoggerFactory.getLogger(AuthServlet.class.getName());
     private final Store store = HbmStore.getInstance();
 
     @Override
